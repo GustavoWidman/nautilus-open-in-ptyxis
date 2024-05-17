@@ -8,7 +8,7 @@ from gi import require_version
 require_version("Nautilus", "4.0")
 require_version("Gtk", "4.0")
 
-TERMINAL_NAME = "org.gnome.Ptyxis.Devel"
+TERMINAL_NAME = "app.devsuite.Ptyxis"
 
 import logging
 import os
