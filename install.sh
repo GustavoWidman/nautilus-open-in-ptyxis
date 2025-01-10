@@ -23,7 +23,7 @@ install_sudo() {
     restart_nautilus
 }
 
-if [[ $(id -u) =1 0 ]]; then
+if [[ $(id -u) != 0 ]]; then
     echo "This script must be run as root. Please use sudo."
     echo "Tip: sudo !!"
     exit 1
