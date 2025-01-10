@@ -8,6 +8,8 @@ from gi import require_version
 require_version("Nautilus", "4.0")
 require_version("Gtk", "4.0")
 
+VSCODE_NAME = "com.visualstudio.code"
+
 import logging
 import os
 from gettext import gettext
@@ -80,19 +82,22 @@ class VSCodeNautilus(GObject.GObject, Nautilus.MenuProvider):
 
         return item
 
-    def get_path(self):
+    def is_native(self):
         if shutil.which("code") == "/usr/bin/code":
-            return "/usr/bin/code"
+            return "code"
         if shutil.which("code-insiders") == "/usr/bin/code-insiders":
-            return "/usr/bin/code-insiders"
-
-        return None
+            return "code-insiders"
 
     def _nautilus_run(self, menu, path):
         """'Open with VSCode's menu item callback."""
-        logging.debug("Opening:", path)
-
-        args = [self.get_path(), "-n", path]
+        logging.debug("Openning:", path)
+        args = None
+        if self.is_native()=="code":
+            args = ["code", "-n", path]
+        elif self.is_native()=="code-insiders":
+            args = ["code-insiders", "-n", path]
+        else:
+            args = ["/usr/bin/flatpak", "run", VSCODE_NAME, "-n", path]
 
         subprocess.Popen(args, cwd=path)
 
