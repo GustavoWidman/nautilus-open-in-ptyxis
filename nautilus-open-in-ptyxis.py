@@ -91,7 +91,7 @@ class PtyxisNautilus(GObject.GObject, Nautilus.MenuProvider):
         if which == "/usr/bin/ptyxis-terminal" or which == "/usr/local/bin/ptyxis-terminal":
             return "ptyxis-terminal"
         which = shutil.which("ptyxis") 
-        if which == "/usr/bin/ptyxis" or which == "/usr/local/bin/ptyxis":
+        if which == "/usr/bin/ptyxis" or which == "/usr/local/bin/ptyxis" or which == "/usr/sbin/ptyxis":
             return "ptyxis"
 
     def _nautilus_run(self, menu, path):
